@@ -5,10 +5,12 @@ Tensorflow face detection implementation based on Mobilenet SSD V2, trained on W
 
 ## Dependencies
 
-* Tensorflow >= 1.12
+* Tensorflow 2
 * OpenCv
 * imutils
 
+Previously has to be installed: https://github.com/tensorflow/models.git
+nd follow all these instructions: https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md
 ```
 pip install -r requirements.txt
 ```
