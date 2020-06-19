@@ -6,12 +6,13 @@ import numpy as np
 import tensorflow as tf
 import cv2
 
-from utils import label_map_util
-from utils import visualization_utils_color as vis_util
+from faceutils import label_map_util
+from faceutils import visualization_utils_color as vis_util
 
 from imutils.video import FPS
 from imutils.video import WebcamVideoStream
 
+tf.compat.v1.disable_eager_execution()
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_CKPT = './model/frozen_inference_graph.pb'
@@ -32,13 +33,13 @@ def face_detection():
     # Load Tensorflow model
     detection_graph = tf.Graph()
     with detection_graph.as_default():
-        od_graph_def = tf.GraphDef()
-        with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
+        od_graph_def = tf.compat.v1.GraphDef()
+        with tf.io.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
             serialized_graph = fid.read()
             od_graph_def.ParseFromString(serialized_graph)
             tf.import_graph_def(od_graph_def, name='')
 
-        sess = tf.Session(graph=detection_graph)
+        sess = tf.compat.v1.Session(graph=detection_graph)
 
     image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
 
